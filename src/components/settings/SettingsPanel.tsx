@@ -12,6 +12,7 @@ import {
   Sliders,
   Tv,
   RotateCw,
+  Lock,
 } from "lucide-react";
 import { useWheelStore } from "@/store/useWheelStore";
 
@@ -129,6 +130,38 @@ export const SettingsPanel: React.FC = () => {
                 {deg === 0 ? "0° Normal" : `${deg}°`}
               </button>
             ))}
+          </div>
+        </div>
+
+        {/* Segurança: Alterar Senha de 4 Dígitos */}
+        <div className="bg-slate-50 border border-slate-200 rounded-xl p-2.5">
+          <div className="flex justify-between items-center mb-1">
+            <span className="text-[11px] font-bold text-slate-700 flex items-center gap-1">
+              <Lock className="w-3.5 h-3.5 text-orange-600" />
+              Senha do Gerenciador (4 dígitos)
+            </span>
+            <span className="text-[10px] font-mono font-bold text-slate-500">
+              PIN Atual: {settings.adminPin || "1234"}
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <input
+              type="text"
+              inputMode="numeric"
+              maxLength={4}
+              defaultValue={settings.adminPin || "1234"}
+              placeholder="1234"
+              onChange={(e) => {
+                const val = e.target.value.replace(/\D/g, "").slice(0, 4);
+                if (val.length === 4) {
+                  updateSettings({ adminPin: val });
+                }
+              }}
+              className="bg-white border border-slate-300 rounded-lg px-2.5 py-1 text-xs font-mono text-center w-24 text-slate-800 focus:outline-none focus:border-orange-500"
+            />
+            <span className="text-[10px] text-slate-400">
+              Digite 4 números para trocar a senha
+            </span>
           </div>
         </div>
 

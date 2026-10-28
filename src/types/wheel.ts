@@ -28,6 +28,7 @@ export interface WheelSettings {
   presentationMode: boolean;
   fullScreen: boolean;
   orientationRotation: 0 | 90 | 180 | 270; // Rotação da tela em graus para monitores verticais/horizontais
+  adminPin?: string; // Senha de 4 dígitos para gerenciar prêmios e ajustes
 }
 
 export interface SpinResult {

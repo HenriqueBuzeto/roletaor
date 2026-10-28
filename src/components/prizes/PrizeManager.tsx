@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Plus, Trash2, Edit2, Check, X, Eye, EyeOff, RotateCcw, Percent, AlertCircle } from "lucide-react";
+import { Plus, Trash2, Edit2, Check, X, Eye, EyeOff, RotateCcw, Percent, AlertCircle, Lock, Unlock, KeyRound } from "lucide-react";
 import { useWheelStore } from "@/store/useWheelStore";
 import { getNormalizedProbabilities } from "@/lib/wheel/random";
 
@@ -9,6 +9,7 @@ export const PrizeManager: React.FC = () => {
   const {
     prizes,
     status,
+    settings,
     addPrize,
     updatePrize,
     removePrize,
@@ -16,6 +17,10 @@ export const PrizeManager: React.FC = () => {
     resetDefaultPrizes,
     distributeEqualProbabilities,
   } = useWheelStore();
+
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [pinInput, setPinInput] = useState("");
+  const [pinError, setPinError] = useState(false);
 
   const [newPrizeName, setNewPrizeName] = useState("");
   const [newPrizeProb, setNewPrizeProb] = useState<string>("");
@@ -106,13 +111,86 @@ export const PrizeManager: React.FC = () => {
     }
   };
 
+  const targetPin = settings.adminPin || "1234";
+
+  const handleVerifyPin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (pinInput.trim() === targetPin) {
+      setIsUnlocked(true);
+      setPinError(false);
+      setPinInput("");
+    } else {
+      setPinError(true);
+    }
+  };
+
+  // Se bloqueado, exibe tela de proteção por PIN de 4 dígitos
+  if (!isUnlocked) {
+    return (
+      <div className="bg-white/95 border border-slate-200 rounded-2xl p-5 sm:p-6 flex flex-col items-center text-center gap-3 text-slate-800 w-full shadow-lg">
+        <div className="w-12 h-12 rounded-2xl bg-orange-100 border border-orange-200 flex items-center justify-center text-orange-600 shadow-sm mb-1">
+          <Lock className="w-6 h-6" />
+        </div>
+
+        <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
+          Acesso Restrito
+        </h3>
+        <p className="text-xs text-slate-500 max-w-xs -mt-1">
+          Digite a senha de 4 dígitos para gerenciar prêmios e alterar probabilidades.
+        </p>
+
+        <form onSubmit={handleVerifyPin} className="w-full max-w-xs flex flex-col gap-2.5 mt-2">
+          <div className="relative w-full">
+            <input
+              type="password"
+              inputMode="numeric"
+              maxLength={4}
+              value={pinInput}
+              autoFocus
+              onChange={(e) => {
+                setPinInput(e.target.value);
+                setPinError(false);
+              }}
+              placeholder="••••"
+              className={`w-full bg-slate-50 border rounded-xl py-2.5 text-center text-2xl font-mono tracking-[0.5em] text-slate-900 placeholder-slate-300 focus:outline-none transition ${
+                pinError
+                  ? "border-rose-500 bg-rose-50/50"
+                  : "border-slate-300 focus:border-orange-500 focus:bg-white"
+              }`}
+            />
+          </div>
+
+          {pinError && (
+            <p className="text-xs font-semibold text-rose-600 animate-wiggle">
+              Senha incorreta. Tente novamente.
+            </p>
+          )}
+
+          <button
+            type="submit"
+            disabled={pinInput.length === 0}
+            className="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:brightness-105 active:scale-95 text-white font-bold py-2.5 rounded-xl text-xs sm:text-sm flex items-center justify-center gap-1.5 transition disabled:opacity-50 cursor-pointer shadow-md"
+          >
+            <KeyRound className="w-4 h-4" />
+            Liberar Gerenciador
+          </button>
+
+          <span className="text-[10px] text-slate-400">
+            Senha padrão de fábrica: <strong className="font-mono text-slate-600">1234</strong>
+          </span>
+        </form>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-white/95 border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col gap-3 text-slate-800 w-full overflow-hidden shadow-lg">
       {/* Cabeçalho do Gerenciador */}
       <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
         <div className="min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
-            <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight flex items-center gap-1.5">
+              <Unlock className="w-4 h-4 text-emerald-600" />
               Gerenciar Prêmios
             </h3>
             <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-orange-100 text-orange-700 border border-orange-200">
@@ -124,15 +202,26 @@ export const PrizeManager: React.FC = () => {
           </p>
         </div>
 
-        <button
-          onClick={resetDefaultPrizes}
-          disabled={isSpinning}
-          title="Restaurar prêmios de exemplo"
-          className="text-xs text-slate-500 hover:text-orange-600 flex items-center gap-1.5 p-1.5 rounded-lg hover:bg-orange-50 transition disabled:opacity-50 shrink-0 cursor-pointer"
-        >
-          <RotateCcw className="w-3.5 h-3.5" />
-          <span>Exemplos</span>
-        </button>
+        <div className="flex items-center gap-1.5 shrink-0">
+          <button
+            onClick={() => setIsUnlocked(false)}
+            title="Bloquear gerenciador"
+            className="text-xs text-slate-500 hover:text-slate-800 flex items-center gap-1 p-1.5 rounded-lg hover:bg-slate-100 transition cursor-pointer"
+          >
+            <Lock className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Bloquear</span>
+          </button>
+
+          <button
+            onClick={resetDefaultPrizes}
+            disabled={isSpinning}
+            title="Restaurar prêmios de exemplo"
+            className="text-xs text-slate-500 hover:text-orange-600 flex items-center gap-1.5 p-1.5 rounded-lg hover:bg-orange-50 transition disabled:opacity-50 cursor-pointer"
+          >
+            <RotateCcw className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Exemplos</span>
+          </button>
+        </div>
       </div>
 
       {/* Caixa de Status das Probabilidades */}
