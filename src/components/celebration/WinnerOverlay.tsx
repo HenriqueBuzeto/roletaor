@@ -80,11 +80,14 @@ export const WinnerOverlay: React.FC<WinnerOverlayProps> = ({ onSpinAgain }) => 
             </button>
             <button
               onClick={dismissWinner}
-              className="py-3.5 px-6 rounded-xl font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 hover:text-slate-900 transition border border-slate-200 cursor-pointer"
+              className="py-3.5 px-6 rounded-xl font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 hover:text-slate-900 transition border border-slate-200 cursor-pointer flex items-center justify-center gap-1.5"
             >
               FECHAR
             </button>
           </div>
+          <p className="mt-3 text-[11px] text-slate-400 font-medium">
+            Pressione <kbd className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-300 font-mono text-[10px] text-slate-700">Espaço</kbd> para voltar à roleta
+          </p>
         </motion.div>
       </div>
     </AnimatePresence>

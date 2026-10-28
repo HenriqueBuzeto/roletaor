@@ -89,6 +89,39 @@ export default function Home() {
     setRotation(nextRotation);
   }, [status, activePrizes.length, startSpin, segments, currentRotation, setRotation]);
 
+  // Tecla de Espaço: Aciona a roleta automaticamente ou fecha a tela de parabéns voltando para o giro
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ignora se o usuário estiver digitando em um campo de texto, input ou modal de PIN
+      const target = e.target as HTMLElement | null;
+      if (
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+
+      if (e.code === "Space" || e.key === " ") {
+        e.preventDefault();
+
+        const currentStatus = useWheelStore.getState().status;
+        if (currentStatus === "celebrating") {
+          // Fecha a tela de celebração e volta para a tela de giro
+          useWheelStore.getState().dismissWinner();
+        } else if (currentStatus === "idle") {
+          handleTriggerSpin();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleTriggerSpin]);
+
   const handleAnimationComplete = useCallback(() => {
     if (status === "spinning") {
       celebrationTimerRef.current = setTimeout(() => {
