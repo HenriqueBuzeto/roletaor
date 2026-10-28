@@ -184,12 +184,12 @@ export const PrizeManager: React.FC = () => {
   }
 
   return (
-    <div className="bg-white/95 border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col gap-3 text-slate-800 w-full overflow-hidden shadow-lg">
+    <div className="bg-white/95 border border-slate-200 rounded-2xl p-3 sm:p-3.5 flex flex-col gap-2 text-slate-800 w-full overflow-hidden shadow-lg">
       {/* Cabeçalho do Gerenciador */}
-      <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+      <div className="flex items-center justify-between border-b border-slate-100 pb-2">
         <div className="min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
-            <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight flex items-center gap-1.5">
+            <h3 className="text-sm sm:text-base font-bold text-slate-900 tracking-tight flex items-center gap-1.5">
               <Unlock className="w-4 h-4 text-emerald-600" />
               Gerenciar Prêmios
             </h3>
@@ -322,8 +322,8 @@ export const PrizeManager: React.FC = () => {
         </div>
       )}
 
-      {/* Lista de Prêmios — Expandida para cima com máxima visibilidade */}
-      <div className="max-h-[440px] xl:max-h-[500px] 2xl:max-h-[560px] overflow-y-auto overflow-x-hidden space-y-2 no-scrollbar pr-0.5">
+      {/* Lista de Prêmios com rolagem interna suave sem empurrar o rodapé para baixo da tela */}
+      <div className="max-h-[250px] sm:max-h-[280px] xl:max-h-[300px] 2xl:max-h-[340px] overflow-y-auto overflow-x-hidden space-y-1.5 custom-scrollbar pr-1">
         {prizes.map((prize, idx) => {
           const activeIndex = activePrizes.findIndex((p) => p.id === prize.id);
           const effectiveChance =
