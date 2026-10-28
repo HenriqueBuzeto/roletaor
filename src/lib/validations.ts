@@ -20,7 +20,7 @@ export const SettingsSchema = z.object({
   presentationMode: z.boolean().default(false),
   fullScreen: z.boolean().default(false),
   orientationRotation: z.union([z.literal(0), z.literal(90), z.literal(180), z.literal(270)]).default(0),
-  adminPin: z.string().default("1234"),
+  adminPin: z.string().default("0106"),
 });
 
 export const SpinResultSchema = z.object({

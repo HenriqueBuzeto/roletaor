@@ -174,10 +174,6 @@ export const PrizeManager: React.FC = () => {
             <KeyRound className="w-4 h-4" />
             Liberar Gerenciador
           </button>
-
-          <span className="text-[10px] text-slate-400">
-            Senha padrão de fábrica: <strong className="font-mono text-slate-600">1234</strong>
-          </span>
         </form>
       </div>
     );

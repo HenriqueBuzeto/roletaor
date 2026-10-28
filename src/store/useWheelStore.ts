@@ -67,7 +67,7 @@ export const useWheelStore = create<WheelState>()(
         presentationMode: false,
         fullScreen: false,
         orientationRotation: 0,
-        adminPin: "1234",
+        adminPin: "0106",
       },
 
       addPrize: (name: string, probability?: number) => {

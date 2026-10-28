@@ -141,7 +141,7 @@ export const SettingsPanel: React.FC = () => {
               Senha do Gerenciador (4 dígitos)
             </span>
             <span className="text-[10px] font-mono font-bold text-slate-500">
-              PIN Atual: {settings.adminPin || "1234"}
+              PIN Atual: {settings.adminPin || "0106"}
             </span>
           </div>
           <div className="flex items-center gap-2">
@@ -149,8 +149,8 @@ export const SettingsPanel: React.FC = () => {
               type="text"
               inputMode="numeric"
               maxLength={4}
-              defaultValue={settings.adminPin || "1234"}
-              placeholder="1234"
+              defaultValue={settings.adminPin || "0106"}
+              placeholder="0106"
               onChange={(e) => {
                 const val = e.target.value.replace(/\D/g, "").slice(0, 4);
                 if (val.length === 4) {
