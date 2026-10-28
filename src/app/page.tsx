@@ -228,7 +228,7 @@ export default function Home() {
           <div
             className={`flex-1 w-full flex flex-row items-center justify-center gap-2 sm:gap-4 md:gap-6 lg:gap-8 order-1 xl:order-2 ${
               isRotated90or270
-                ? "pr-4 sm:pr-8"
+                ? "pr-14 sm:pr-20 md:pr-24 -translate-x-6 sm:-translate-x-10"
                 : ""
             }`}
           >
