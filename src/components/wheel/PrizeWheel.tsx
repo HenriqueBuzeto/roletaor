@@ -50,7 +50,7 @@ export const PrizeWheel: React.FC<PrizeWheelProps> = ({
         className={`relative flex items-center justify-center ${
           isRotated
             ? "w-[44vw] h-[44vw] max-w-[480px] max-h-[480px] min-w-[240px] min-h-[240px]"
-            : "w-[240px] h-[240px] xs:w-[270px] xs:h-[270px] sm:w-[350px] sm:h-[350px] md:w-[440px] md:h-[440px] lg:w-[500px] lg:h-[500px] xl:w-[560px] xl:h-[560px] 2xl:w-[610px] 2xl:h-[610px]"
+            : "w-[220px] h-[220px] xs:w-[260px] xs:h-[260px] sm:w-[340px] sm:h-[340px] md:w-[420px] md:h-[420px] lg:w-[460px] lg:h-[460px] xl:w-[500px] xl:h-[500px] 2xl:w-[540px] 2xl:h-[540px]"
         }`}
       >
         {/* Glow Laranja Radiante de Fundo */}

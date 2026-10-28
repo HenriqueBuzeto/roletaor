@@ -183,14 +183,13 @@ export default function Home() {
       <main className="flex-1 w-full px-3 sm:px-6 lg:px-8 py-2 sm:py-3 flex flex-col justify-between items-center">
         {/* 
           Distribuição Responsiva:
-          - Telas Pequenas/Médias (Celular e Tablet): Coluna única centrada
-          - Telas Grandes e TV (Desktop e TV 1080p/4K): 
-              * Canto Esquerdo: Gerenciador de Prêmios
-              * Centro e Direita: Roleta e Renata lado a lado com Título alinhado ao centro da roleta
+          - Painel no Canto Esquerdo
+          - Roleta no Centro
+          - Renata ao lado da Roleta
         */}
-        <div className="w-full flex-1 flex flex-col xl:flex-row items-center justify-between gap-4 lg:gap-6">
-          {/* 1. Lado Esquerdo: Painel de Prêmios e Ajustes - Alinhado ao topo para máxima amplitude e visibilidade vertical */}
-          <div className="w-full max-w-md xl:max-w-[380px] 2xl:max-w-[420px] flex items-start justify-center xl:justify-start shrink-0 order-2 xl:order-1 self-start">
+        <div className="w-full max-w-[1700px] flex-1 flex flex-col xl:flex-row items-center justify-between gap-4 lg:gap-8 mx-auto">
+          {/* 1. Lado Esquerdo: Painel de Prêmios e Ajustes */}
+          <div className="w-full max-w-md xl:max-w-[360px] 2xl:max-w-[390px] flex items-start justify-center xl:justify-start shrink-0 order-2 xl:order-1 self-start">
             {!isPresentation ? (
               <div className="w-full flex flex-col gap-2">
                 <div className="flex bg-slate-200/80 p-1 rounded-xl border border-slate-300/60 shrink-0">
@@ -227,10 +226,10 @@ export default function Home() {
 
           {/* 2. Área Central e Direita: Roleta e Personagem Renata */}
           <div
-            className={`flex-1 w-full flex flex-row items-center justify-center gap-1 sm:gap-4 md:gap-6 lg:gap-8 order-1 xl:order-2 ${
+            className={`flex-1 w-full flex flex-row items-center justify-center gap-2 sm:gap-4 md:gap-6 lg:gap-8 order-1 xl:order-2 ${
               isRotated90or270
-                ? "pr-6 sm:pr-12 md:pr-16"
-                : "px-1 sm:px-2"
+                ? "pr-4 sm:pr-8"
+                : ""
             }`}
           >
             {/* Coluna da Roleta com Título rigorosamente alinhado ao centro geométrico */}
@@ -275,7 +274,7 @@ export default function Home() {
             </div>
 
             {/* Personagem Renata: SEMPRE AO LADO DA ROLETA em celular, tablet e TV */}
-            <div className="flex items-end justify-center shrink-0 -ml-3 sm:-ml-4 md:-ml-6 lg:-ml-8 self-end pb-3">
+            <div className="flex items-end justify-center shrink-0 -ml-2 sm:-ml-4 md:-ml-6 lg:-ml-8 self-end pb-2">
               <CharacterAssistant />
             </div>
           </div>
