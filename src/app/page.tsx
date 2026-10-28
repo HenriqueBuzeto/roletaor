@@ -194,10 +194,10 @@ export default function Home() {
 
           {/* 2. Área Central e Direita: Roleta e Personagem Renata */}
           <div
-            className={`flex-1 w-full flex flex-row items-center justify-center gap-2 sm:gap-4 md:gap-6 lg:gap-8 order-1 xl:order-2 ${
+            className={`flex-1 w-full flex flex-row items-center justify-center gap-1 sm:gap-4 md:gap-6 lg:gap-8 order-1 xl:order-2 ${
               isRotated90or270
-                ? "pr-12 md:pr-16 lg:pr-20 -translate-x-4 sm:-translate-x-8"
-                : "-translate-x-2 sm:-translate-x-4 xl:-translate-x-6"
+                ? "pr-6 sm:pr-12 md:pr-16"
+                : "px-1 sm:px-2"
             }`}
           >
             {/* Coluna da Roleta com Título rigorosamente alinhado ao centro geométrico */}
