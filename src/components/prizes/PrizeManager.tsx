@@ -111,7 +111,11 @@ export const PrizeManager: React.FC = () => {
     }
   };
 
-  const targetPin = settings.adminPin || "1234";
+  // Se o PIN for o antigo 1234 ou indefinido no localStorage antigo, migra para 0106
+  const targetPin =
+    !settings.adminPin || settings.adminPin === "1234"
+      ? "0106"
+      : settings.adminPin;
 
   const handleVerifyPin = (e: React.FormEvent) => {
     e.preventDefault();

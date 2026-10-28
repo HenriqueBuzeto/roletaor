@@ -371,7 +371,7 @@ export const useWheelStore = create<WheelState>()(
       },
     }),
     {
-      name: "otica_renata_prime_wheel_v1",
+      name: "otica_renata_prime_wheel_v2",
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         prizes: state.prizes,
@@ -379,6 +379,14 @@ export const useWheelStore = create<WheelState>()(
         history: state.history,
         currentRotation: state.currentRotation,
       }),
+      migrate: (persistedState: any) => {
+        if (persistedState && persistedState.settings) {
+          if (!persistedState.settings.adminPin || persistedState.settings.adminPin === "1234") {
+            persistedState.settings.adminPin = "0106";
+          }
+        }
+        return persistedState;
+      },
     }
   )
 );
