@@ -252,29 +252,29 @@ export default function Home() {
               />
 
               {/* Ações Rápidas abaixo da roleta */}
-              <div className="mt-2.5 sm:mt-3 flex items-center justify-center gap-2">
+              <div className="mt-2 sm:mt-3 flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap">
                 <button
                   onClick={handleTriggerSpin}
                   disabled={status === "spinning" || activePrizes.length < 2}
-                  className="px-6 sm:px-8 py-2.5 rounded-full font-extrabold text-xs sm:text-sm uppercase tracking-wider text-white bg-gradient-to-r from-[#FF6B00] via-[#EA580C] to-[#C2410C] hover:brightness-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_8px_20px_rgba(234,88,12,0.35)] transition cursor-pointer flex items-center gap-2"
+                  className="px-5 sm:px-8 py-2 sm:py-2.5 rounded-full font-extrabold text-[11px] sm:text-sm uppercase tracking-wider text-white bg-gradient-to-r from-[#FF6B00] via-[#EA580C] to-[#C2410C] hover:brightness-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_8px_20px_rgba(234,88,12,0.35)] transition cursor-pointer flex items-center gap-1.5"
                 >
-                  <Play className="w-4 h-4 fill-current" />
+                  <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" />
                   {status === "spinning" ? "Girando..." : "Girar Roleta"}
                 </button>
 
                 {isPresentation && (
                   <button
                     onClick={() => useWheelStore.getState().togglePresentationMode()}
-                    className="px-4 py-2.5 rounded-full font-semibold text-xs text-slate-700 bg-white border border-slate-300 hover:text-orange-600 hover:border-orange-300 shadow-xs transition cursor-pointer"
+                    className="px-3 sm:px-4 py-2 sm:py-2.5 rounded-full font-semibold text-[11px] sm:text-xs text-slate-700 bg-white border border-slate-300 hover:text-orange-600 hover:border-orange-300 shadow-xs transition cursor-pointer"
                   >
-                    Configurar Prêmios
+                    Configurar
                   </button>
                 )}
               </div>
             </div>
 
             {/* Personagem Renata: SEMPRE AO LADO DA ROLETA em celular, tablet e TV */}
-            <div className="flex items-end justify-center shrink-0 -ml-2 sm:-ml-4 md:-ml-6 lg:-ml-8 self-end pb-2">
+            <div className="flex items-end justify-center shrink-0 -ml-1 sm:-ml-4 md:-ml-6 lg:-ml-8 self-end pb-2">
               <CharacterAssistant />
             </div>
           </div>
