@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+}
+
+html, body {
+  background-color: #f8fafc;
+  color: #0f172a;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+}
+
+/* Ocultar scrollbars mantendo scroll funcional quando necessário */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom scrollbar para listas internas */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(249, 115, 22, 0.3);
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(249, 115, 22, 0.6);
+}
+
+@keyframes wiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-7deg);
+  }
+  75% {
+    transform: rotate(7deg);
+  }
+}
+
+.animate-wiggle {
+  animation: wiggle 0.12s ease-in-out infinite;
+}
+
+/* Ocultar badge de desenvolvimento do Next.js (ícone N no canto inferior) */
+nextjs-portal,
+div[data-nextjs-toast="true"],
+#nextjs-dev-overlay,
+[data-nextjs-dialog-overlay] {
+  display: none !important;
+}
