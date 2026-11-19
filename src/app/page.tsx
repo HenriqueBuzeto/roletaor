@@ -21,6 +21,7 @@ export default function Home() {
     completeSpin,
     setRotation,
     settings,
+    fetchPrizesFromDb,
   } = useWheelStore();
 
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -30,12 +31,13 @@ export default function Home() {
 
   useEffect(() => {
     setIsMounted(true);
+    fetchPrizesFromDb();
     return () => {
       if (celebrationTimerRef.current) {
         clearTimeout(celebrationTimerRef.current);
       }
     };
-  }, []);
+  }, [fetchPrizesFromDb]);
 
   const activePrizes = useMemo(() => prizes.filter((p) => p.active), [prizes]);
   const segments = useMemo(

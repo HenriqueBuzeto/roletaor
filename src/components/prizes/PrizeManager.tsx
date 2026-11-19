@@ -44,7 +44,7 @@ export const PrizeManager: React.FC = () => {
   const totalFormatted = Number(totalConfiguredProb.toFixed(1));
   const isTotal100 = !hasCustomProbabilities || Math.abs(totalFormatted - 100) < 0.1;
 
-  const handleAddPrize = (e: React.FormEvent) => {
+  const handleAddPrize = async (e: React.FormEvent) => {
     e.preventDefault();
     setFeedbackError(null);
     if (!newPrizeName.trim()) return;
@@ -55,7 +55,7 @@ export const PrizeManager: React.FC = () => {
       return;
     }
 
-    const res = addPrize(newPrizeName, probNum);
+    const res = await addPrize(newPrizeName, probNum);
     if (!res.success) {
       setFeedbackError(res.error || "Erro ao adicionar");
     } else {
@@ -72,14 +72,14 @@ export const PrizeManager: React.FC = () => {
     setFeedbackError(null);
   };
 
-  const handleSaveEdit = (id: string) => {
+  const handleSaveEdit = async (id: string) => {
     const probNum = editingProb.trim() ? parseFloat(editingProb) : undefined;
     if (probNum !== undefined && (isNaN(probNum) || probNum <= 0 || probNum > 100)) {
       setFeedbackError("A probabilidade deve ser entre 0.01% e 100%");
       return;
     }
 
-    const res = updatePrize(id, editingName, probNum);
+    const res = await updatePrize(id, editingName, probNum);
     if (!res.success) {
       setFeedbackError(res.error || "Erro ao atualizar");
     } else {
@@ -95,17 +95,17 @@ export const PrizeManager: React.FC = () => {
     setEditingProb("");
   };
 
-  const handleRemove = (id: string) => {
+  const handleRemove = async (id: string) => {
     setFeedbackError(null);
-    const res = removePrize(id);
+    const res = await removePrize(id);
     if (!res.success) {
       setFeedbackError(res.error || "Não foi possível remover");
     }
   };
 
-  const handleToggle = (id: string) => {
+  const handleToggle = async (id: string) => {
     setFeedbackError(null);
-    const res = togglePrizeActive(id);
+    const res = await togglePrizeActive(id);
     if (!res.success) {
       setFeedbackError(res.error || "Ação não permitida");
     }

@@ -21,14 +21,15 @@ interface WheelState {
   settings: WheelSettings;
 
   // Ações de gerenciamento de prêmios
-  addPrize: (name: string, probability?: number) => { success: boolean; error?: string };
+  fetchPrizesFromDb: () => Promise<void>;
+  addPrize: (name: string, probability?: number) => Promise<{ success: boolean; error?: string }>;
   updatePrize: (
     id: string,
     name: string,
     probability?: number
-  ) => { success: boolean; error?: string };
-  removePrize: (id: string) => { success: boolean; error?: string };
-  togglePrizeActive: (id: string) => { success: boolean; error?: string };
+  ) => Promise<{ success: boolean; error?: string }>;
+  removePrize: (id: string) => Promise<{ success: boolean; error?: string }>;
+  togglePrizeActive: (id: string) => Promise<{ success: boolean; error?: string }>;
   resetDefaultPrizes: () => void;
   reorderPrizes: (sourceIndex: number, destIndex: number) => void;
   distributeEqualProbabilities: () => void;
@@ -70,7 +71,20 @@ export const useWheelStore = create<WheelState>()(
         adminPin: "0106",
       },
 
-      addPrize: (name: string, probability?: number) => {
+      fetchPrizesFromDb: async () => {
+        try {
+          const res = await fetch("/api/prizes");
+          if (!res.ok) return;
+          const data = await res.json();
+          if (Array.isArray(data.prizes) && data.prizes.length > 0) {
+            set({ prizes: data.prizes });
+          }
+        } catch (err) {
+          console.warn("Offline ou erro ao conectar com Neon DB:", err);
+        }
+      },
+
+      addPrize: async (name: string, probability?: number) => {
         const state = get();
         if (state.status === "spinning") {
           return { success: false, error: "Não é possível alterar prêmios durante o giro" };
@@ -99,19 +113,35 @@ export const useWheelStore = create<WheelState>()(
             ? Math.min(100, Math.max(0.1, Number(probability.toFixed(2))))
             : undefined;
 
-        const newPrize: Prize = {
-          id: `p-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-          name: trimmed,
-          active: true,
-          probability: validProb,
-          createdAt: Date.now(),
-        };
+        // Persiste na API / Banco Neon
+        try {
+          const res = await fetch("/api/prizes", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name: trimmed, probability: validProb }),
+          });
+          const data = await res.json();
+          if (!res.ok || data.error) {
+            return { success: false, error: data.error || "Erro ao salvar no banco" };
+          }
 
-        set({ prizes: [...state.prizes, newPrize] });
-        return { success: true };
+          set({ prizes: [...state.prizes, data.prize] });
+          return { success: true };
+        } catch (err: any) {
+          // Fallback local se estiver offline
+          const newPrize: Prize = {
+            id: `p-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+            name: trimmed,
+            active: true,
+            probability: validProb,
+            createdAt: Date.now(),
+          };
+          set({ prizes: [...state.prizes, newPrize] });
+          return { success: true };
+        }
       },
 
-      updatePrize: (id: string, name: string, probability?: number) => {
+      updatePrize: async (id: string, name: string, probability?: number) => {
         const state = get();
         if (state.status === "spinning") {
           return { success: false, error: "Não é possível editar durante o giro" };
@@ -135,6 +165,16 @@ export const useWheelStore = create<WheelState>()(
             ? Math.min(100, Math.max(0.01, Number(probability.toFixed(2))))
             : undefined;
 
+        try {
+          await fetch("/api/prizes", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id, name: trimmed, probability: validProb }),
+          });
+        } catch (err) {
+          console.warn("Erro ao atualizar no banco Neon:", err);
+        }
+
         set({
           prizes: state.prizes.map((p) =>
             p.id === id ? { ...p, name: trimmed, probability: validProb } : p
@@ -156,7 +196,7 @@ export const useWheelStore = create<WheelState>()(
         });
       },
 
-      removePrize: (id: string) => {
+      removePrize: async (id: string) => {
         const state = get();
         if (state.status === "spinning") {
           return { success: false, error: "Não é possível remover durante o giro" };
@@ -170,13 +210,21 @@ export const useWheelStore = create<WheelState>()(
           };
         }
 
+        try {
+          await fetch(`/api/prizes?id=${encodeURIComponent(id)}`, {
+            method: "DELETE",
+          });
+        } catch (err) {
+          console.warn("Erro ao excluir no banco Neon:", err);
+        }
+
         set({
           prizes: state.prizes.filter((p) => p.id !== id),
         });
         return { success: true };
       },
 
-      togglePrizeActive: (id: string) => {
+      togglePrizeActive: async (id: string) => {
         const state = get();
         if (state.status === "spinning") {
           return { success: false, error: "Não é possível alterar durante o giro" };
@@ -194,6 +242,16 @@ export const useWheelStore = create<WheelState>()(
               error: "Mantenha pelo menos 2 prêmios ativos para girar a roleta",
             };
           }
+        }
+
+        try {
+          await fetch("/api/prizes", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id, active: willBeActive }),
+          });
+        } catch (err) {
+          console.warn("Erro ao atualizar status no banco Neon:", err);
         }
 
         set({
