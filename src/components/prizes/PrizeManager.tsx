@@ -228,24 +228,26 @@ export const PrizeManager: React.FC = () => {
       <div
         className={`border rounded-xl p-3 flex items-center justify-between text-xs transition ${
           isTotal100
-            ? "bg-orange-50/80 border-orange-200"
+            ? "bg-emerald-50/80 border-emerald-200"
             : "bg-amber-50/90 border-amber-300"
         }`}
       >
         <div className="min-w-0 flex-1 pr-2">
           <div className="flex items-center gap-1.5 font-semibold text-slate-800">
             {!isTotal100 && <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />}
-            <span>
+            <span className={!isTotal100 ? "text-amber-800 font-bold" : "text-emerald-800"}>
               {hasCustomProbabilities
-                ? "Probabilidades Ponderadas Personalizadas"
+                ? isTotal100
+                  ? "Probabilidades Ponderadas (Fechadas em 100%)"
+                  : "Atenção: A soma ultrapassa ou não atinge 100%"
                 : "Probabilidade Equitativa Automática"}
             </span>
           </div>
-          <p className="text-slate-500 text-[11px] mt-0.5">
+          <p className="text-slate-600 text-[11px] mt-0.5">
             {hasCustomProbabilities
               ? isTotal100
-                ? "Soma total configurada fecha perfeitamente em 100%."
-                : `Soma atual: ${totalFormatted}% (as chances serão ajustadas para 100%).`
+                ? "Cada prêmio tem exatamente a chance em % configurada."
+                : `Soma atual: ${totalFormatted}%. Recomenda-se ajustar os valores dos prêmios para fechar em exatamente 100%.`
               : `Cada opção tem chance igual de ${(100 / (activePrizes.length || 1)).toFixed(2)}%.`}
           </p>
         </div>
@@ -253,7 +255,7 @@ export const PrizeManager: React.FC = () => {
         <div className="flex flex-col items-end shrink-0 gap-1">
           <span
             className={`text-base font-black ${
-              isTotal100 ? "text-orange-600" : "text-amber-600"
+              isTotal100 ? "text-emerald-600" : "text-amber-600"
             }`}
           >
             {hasCustomProbabilities ? `${totalFormatted}%` : "100%"}
@@ -395,18 +397,22 @@ export const PrizeManager: React.FC = () => {
                     </span>
                   </div>
 
-                  {/* Badge de Probabilidade Efetiva */}
-                  {prize.active && effectiveChance !== null && (
+                  {/* Badge de Probabilidade Real Configurada */}
+                  {prize.active && (
                     <div
                       title={
                         prize.probability !== undefined
                           ? `Probabilidade configurada: ${prize.probability}%`
-                          : "Probabilidade calculada automaticamente"
+                          : `Automática: ${(100 / (activePrizes.length || 1)).toFixed(1)}%`
                       }
-                      className="flex items-center gap-1 px-2 py-0.5 rounded-lg bg-orange-100/90 text-orange-800 text-[11px] font-bold shrink-0 border border-orange-200"
+                      className="flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-orange-100/90 text-orange-800 text-xs font-black shrink-0 border border-orange-200"
                     >
-                      <Percent className="w-2.5 h-2.5 text-orange-600" />
-                      <span>{effectiveChance.toFixed(1)}%</span>
+                      <Percent className="w-3 h-3 text-orange-600" />
+                      <span>
+                        {prize.probability !== undefined
+                          ? `${Number(prize.probability)}%`
+                          : `${(100 / (activePrizes.length || 1)).toFixed(1)}%`}
+                      </span>
                     </div>
                   )}
 
