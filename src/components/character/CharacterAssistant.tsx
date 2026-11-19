@@ -48,7 +48,7 @@ export const CharacterAssistant: React.FC<CharacterAssistantProps> = ({ classNam
         preload="auto"
         className={`w-auto object-contain drop-shadow-none ${
           isRotated
-            ? "h-[min(58vw,64vh,600px)] min-h-[260px]"
+            ? "h-[min(68vw,74vh,700px)] min-h-[280px]"
             : "h-[min(48vh,420px)] sm:h-[min(60vh,540px)] md:h-[min(65vh,600px)] xl:h-[min(72vh,700px)] 2xl:h-[min(78vh,780px)] min-h-[260px]"
         }`}
         style={{
