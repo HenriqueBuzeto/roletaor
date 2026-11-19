@@ -45,12 +45,12 @@ export const PrizeWheel: React.FC<PrizeWheelProps> = ({
 
   return (
     <div className="relative flex flex-col items-center justify-center select-none">
-      {/* Container da Roleta: proporções dinâmicas para estar sempre ao lado da personagem */}
+      {/* Container da Roleta: tamanho consistente e calibrado para qualquer monitor/tela */}
       <div
         className={`relative flex items-center justify-center ${
           isRotated
-            ? "w-[44vw] h-[44vw] max-w-[480px] max-h-[480px] min-w-[240px] min-h-[240px]"
-            : "w-[210px] h-[210px] xs:w-[250px] xs:h-[250px] sm:w-[350px] sm:h-[350px] md:w-[440px] md:h-[440px] lg:w-[500px] lg:h-[500px] xl:w-[560px] xl:h-[560px] 2xl:w-[610px] 2xl:h-[610px]"
+            ? "w-[min(48vw,48vh)] h-[min(48vw,48vh)] min-w-[300px] min-h-[300px]"
+            : "w-[min(88vw,56vh,540px)] h-[min(88vw,56vh,540px)] sm:w-[min(70vw,60vh,560px)] sm:h-[min(70vw,60vh,560px)] md:w-[min(65vw,62vh,580px)] md:h-[min(65vw,62vh,580px)] xl:w-[min(44vw,66vh,620px)] xl:h-[min(44vw,66vh,620px)] 2xl:w-[min(46vw,70vh,660px)] 2xl:h-[min(46vw,70vh,660px)]"
         }`}
       >
         {/* Glow Laranja Radiante de Fundo */}

@@ -226,20 +226,20 @@ export default function Home() {
 
           {/* 2. Área Central e Direita: Roleta e Personagem Renata */}
           <div
-            className={`flex-1 w-full flex flex-row items-center justify-center gap-2 sm:gap-4 md:gap-6 lg:gap-8 order-1 xl:order-2 ${
+            className={`flex-1 w-full flex flex-row items-center justify-center gap-3 sm:gap-6 md:gap-8 lg:gap-10 order-1 xl:order-2 ${
               isRotated90or270
-                ? "pr-14 sm:pr-20 md:pr-24 -translate-x-6 sm:-translate-x-10"
+                ? "pr-10 sm:pr-16 md:pr-20"
                 : ""
             }`}
           >
             {/* Coluna da Roleta com Título rigorosamente alinhado ao centro geométrico */}
             <div className="shrink-0 flex flex-col items-center justify-center z-10">
               {/* Título de Impacto Centralizado rigorosamente com a Roleta */}
-              <div className="text-center mb-2.5 sm:mb-3 shrink-0">
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-orange-700 via-orange-600 to-amber-600 drop-shadow-xs">
+              <div className="text-center mb-2 sm:mb-2.5 shrink-0">
+                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-orange-700 via-orange-600 to-amber-600 drop-shadow-xs">
                   SUA SORTE BRILHA AQUI!
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-500 font-medium mt-0.5">
+                <p className="text-xs sm:text-sm md:text-base text-slate-500 font-medium mt-0.5">
                   Gire a roleta e descubra seu prêmio exclusivo
                 </p>
               </div>
@@ -252,20 +252,20 @@ export default function Home() {
               />
 
               {/* Ações Rápidas abaixo da roleta */}
-              <div className="mt-2 sm:mt-3 flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap">
+              <div className="mt-2.5 sm:mt-3 flex items-center justify-center gap-2 flex-wrap">
                 <button
                   onClick={handleTriggerSpin}
                   disabled={status === "spinning" || activePrizes.length < 2}
-                  className="px-5 sm:px-8 py-2 sm:py-2.5 rounded-full font-extrabold text-[11px] sm:text-sm uppercase tracking-wider text-white bg-gradient-to-r from-[#FF6B00] via-[#EA580C] to-[#C2410C] hover:brightness-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_8px_20px_rgba(234,88,12,0.35)] transition cursor-pointer flex items-center gap-1.5"
+                  className="px-6 sm:px-9 py-2.5 sm:py-3 rounded-full font-extrabold text-xs sm:text-sm uppercase tracking-wider text-white bg-gradient-to-r from-[#FF6B00] via-[#EA580C] to-[#C2410C] hover:brightness-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_8px_20px_rgba(234,88,12,0.35)] transition cursor-pointer flex items-center gap-2"
                 >
-                  <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" />
+                  <Play className="w-4 h-4 fill-current" />
                   {status === "spinning" ? "Girando..." : "Girar Roleta"}
                 </button>
 
                 {isPresentation && (
                   <button
                     onClick={() => useWheelStore.getState().togglePresentationMode()}
-                    className="px-3 sm:px-4 py-2 sm:py-2.5 rounded-full font-semibold text-[11px] sm:text-xs text-slate-700 bg-white border border-slate-300 hover:text-orange-600 hover:border-orange-300 shadow-xs transition cursor-pointer"
+                    className="px-4 py-2.5 rounded-full font-semibold text-xs text-slate-700 bg-white border border-slate-300 hover:text-orange-600 hover:border-orange-300 shadow-xs transition cursor-pointer"
                   >
                     Configurar
                   </button>
@@ -273,8 +273,8 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Personagem Renata: SEMPRE AO LADO DA ROLETA em celular, tablet e TV */}
-            <div className="flex items-end justify-center shrink-0 -ml-1 sm:-ml-4 md:-ml-6 lg:-ml-8 self-end pb-2">
+            {/* Personagem Renata: SEMPRE AO LADO DA ROLETA */}
+            <div className="flex items-end justify-center shrink-0 -ml-2 sm:-ml-4 md:-ml-6 lg:-ml-8 self-end pb-1">
               <CharacterAssistant />
             </div>
           </div>

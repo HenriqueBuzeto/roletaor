@@ -48,8 +48,8 @@ export const CharacterAssistant: React.FC<CharacterAssistantProps> = ({ classNam
         preload="auto"
         className={`w-auto object-contain drop-shadow-none ${
           isRotated
-            ? "h-[45vw] sm:h-[50vw] md:h-[54vw] max-h-[70vh] min-h-[200px]"
-            : "h-[34vh] xs:h-[40vh] sm:h-[52vh] md:h-[62vh] xl:h-[72vh] 2xl:h-[76vh] max-h-[760px] min-h-[220px] xs:min-h-[260px] sm:min-h-[360px] xl:min-h-[460px]"
+            ? "h-[min(54vw,65vh)] min-h-[260px]"
+            : "h-[min(48vh,420px)] sm:h-[min(60vh,540px)] md:h-[min(65vh,600px)] xl:h-[min(72vh,700px)] 2xl:h-[min(78vh,780px)] min-h-[260px]"
         }`}
         style={{
           clipPath: "inset(2px 3px 2px 3px)",
