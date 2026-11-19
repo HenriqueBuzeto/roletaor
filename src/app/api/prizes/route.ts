@@ -100,6 +100,25 @@ export async function DELETE(request: Request) {
 export async function PATCH(request: Request) {
   try {
     const body = await request.json();
+
+    // Atualização em lote (batch update), por exemplo para 'Dividir por igual'
+    if (Array.isArray(body.prizes)) {
+      await initDb();
+      const sql = getDb();
+      for (const item of body.prizes) {
+        const probNum =
+          item.probability !== undefined && item.probability !== null && item.probability !== ""
+            ? Number(item.probability)
+            : null;
+        await sql`
+          UPDATE wheel_prizes
+          SET probability = ${probNum}
+          WHERE id = ${item.id};
+        `;
+      }
+      return NextResponse.json({ success: true });
+    }
+
     const { id, name, probability, active } = body;
 
     if (!id) {

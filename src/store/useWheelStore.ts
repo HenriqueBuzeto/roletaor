@@ -32,7 +32,7 @@ interface WheelState {
   togglePrizeActive: (id: string) => Promise<{ success: boolean; error?: string }>;
   resetDefaultPrizes: () => void;
   reorderPrizes: (sourceIndex: number, destIndex: number) => void;
-  distributeEqualProbabilities: () => void;
+  distributeEqualProbabilities: () => Promise<void>;
 
   // Ações de configurações
   updateSettings: (partial: Partial<WheelSettings>) => void;
@@ -183,17 +183,45 @@ export const useWheelStore = create<WheelState>()(
         return { success: true };
       },
 
-      distributeEqualProbabilities: () => {
+      distributeEqualProbabilities: async () => {
         const state = get();
         if (state.status === "spinning") return;
         const activeCount = state.prizes.filter((p) => p.active).length;
         if (activeCount === 0) return;
-        const equalProb = Number((100 / activeCount).toFixed(2));
-        set({
-          prizes: state.prizes.map((p) =>
-            p.active ? { ...p, probability: equalProb } : p
-          ),
+
+        // Distribuição perfeita de probabilidade somando exatamente 100.0%
+        // Ex: 6 prêmios => 4 de 16.7% e 2 de 16.6% (ou cálculo em 1 casa decimal exata)
+        const baseProb = Math.floor((100 / activeCount) * 10) / 10;
+        let remainder = Math.round((100 - baseProb * activeCount) * 10) / 10;
+
+        let activeIndex = 0;
+        const updatedPrizes = state.prizes.map((p) => {
+          if (!p.active) return p;
+          let prob = baseProb;
+          if (remainder > 0.001) {
+            prob = Math.round((prob + 0.1) * 10) / 10;
+            remainder = Math.round((remainder - 0.1) * 10) / 10;
+          }
+          activeIndex++;
+          return { ...p, probability: prob };
         });
+
+        // Atualiza estado local imediatamente
+        set({ prizes: updatedPrizes });
+
+        // Salva as novas probabilidades no Neon na nuvem
+        try {
+          const payload = updatedPrizes
+            .filter((p) => p.active)
+            .map((p) => ({ id: p.id, probability: p.probability }));
+          await fetch("/api/prizes", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ prizes: payload }),
+          });
+        } catch (err) {
+          console.warn("Erro ao salvar divisão igualitária no banco Neon:", err);
+        }
       },
 
       removePrize: async (id: string) => {
