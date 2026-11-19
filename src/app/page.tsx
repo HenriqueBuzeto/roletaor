@@ -179,22 +179,10 @@ export default function Home() {
       />
 
       {/* Área Principal */}
-      <main className="flex-1 w-full px-2 sm:px-4 lg:px-6 py-1 sm:py-2 flex flex-col justify-between items-center">
-        {/* Título de Impacto: quando rotacionado (90/270deg), fica no topo logo abaixo do cabeçalho */}
-        {isRotated90or270 && (
-          <div className="w-full text-center pt-1 pb-1 shrink-0 z-20">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-orange-700 via-orange-600 to-amber-600 drop-shadow-xs">
-              SUA SORTE BRILHA AQUI!
-            </h2>
-            <p className="text-xs sm:text-sm md:text-base text-slate-500 font-medium mt-0.5">
-              Gire a roleta e descubra seu prêmio exclusivo
-            </p>
-          </div>
-        )}
-
-        <div className="w-full max-w-[1920px] flex-1 flex flex-col xl:flex-row items-center justify-between gap-3 lg:gap-6 mx-auto">
+      <main className="flex-1 w-full px-3 sm:px-6 lg:px-8 py-2 sm:py-3 flex flex-col justify-between items-center">
+        <div className="w-full max-w-[1700px] flex-1 flex flex-col xl:flex-row items-center justify-between gap-4 lg:gap-8 mx-auto">
           {/* 1. Lado Esquerdo: Painel de Prêmios e Ajustes */}
-          <div className="w-full max-w-md xl:max-w-[340px] 2xl:max-w-[380px] flex items-start justify-center xl:justify-start shrink-0 order-2 xl:order-1 self-start">
+          <div className="w-full max-w-md xl:max-w-[360px] 2xl:max-w-[390px] flex items-start justify-center xl:justify-start shrink-0 order-2 xl:order-1 self-start">
             {!isPresentation ? (
               <div className="w-full flex flex-col gap-2">
                 <div className="flex bg-slate-200/80 p-1 rounded-xl border border-slate-300/60 shrink-0">
@@ -233,23 +221,21 @@ export default function Home() {
           <div
             className={`flex-1 w-full flex flex-row items-center justify-center gap-3 sm:gap-6 md:gap-8 lg:gap-10 order-1 xl:order-2 ${
               isRotated90or270
-                ? "justify-center -translate-x-14 sm:-translate-x-24 md:-translate-x-32"
+                ? "justify-center -translate-x-20 sm:-translate-x-32 md:-translate-x-40"
                 : ""
             }`}
           >
-            {/* Coluna da Roleta com Título */}
+            {/* Coluna da Roleta com Título rigorosamente alinhado ao centro geométrico */}
             <div className="shrink-0 flex flex-col items-center justify-center z-10">
-              {/* Título de Impacto exibido apenas na orientação normal (0° / 180°) */}
-              {!isRotated90or270 && (
-                <div className="text-center mb-2 sm:mb-2.5 shrink-0">
-                  <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-orange-700 via-orange-600 to-amber-600 drop-shadow-xs">
-                    SUA SORTE BRILHA AQUI!
-                  </h2>
-                  <p className="text-xs sm:text-sm md:text-base text-slate-500 font-medium mt-0.5">
-                    Gire a roleta e descubra seu prêmio exclusivo
-                  </p>
-                </div>
-              )}
+              {/* Título de Impacto Centralizado rigorosamente com a Roleta */}
+              <div className="text-center mb-2 sm:mb-2.5 shrink-0">
+                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-orange-700 via-orange-600 to-amber-600 drop-shadow-xs">
+                  SUA SORTE BRILHA AQUI!
+                </h2>
+                <p className="text-xs sm:text-sm md:text-base text-slate-500 font-medium mt-0.5">
+                  Gire a roleta e descubra seu prêmio exclusivo
+                </p>
+              </div>
 
               {/* Roleta Premiada */}
               <PrizeWheel
@@ -283,7 +269,7 @@ export default function Home() {
             {/* Personagem Renata: SEMPRE AO LADO DA ROLETA */}
             <div className={`flex items-end justify-center shrink-0 self-end pb-1 ${
               isRotated90or270
-                ? "-ml-10 sm:-ml-16 md:-ml-24 translate-x-6 sm:translate-x-12"
+                ? "-ml-8 sm:-ml-12 md:-ml-16 translate-x-4 sm:translate-x-8"
                 : "-ml-2 sm:-ml-4 md:-ml-6 lg:-ml-8"
             }`}>
               <CharacterAssistant />

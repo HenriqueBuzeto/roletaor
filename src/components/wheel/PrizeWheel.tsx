@@ -49,7 +49,7 @@ export const PrizeWheel: React.FC<PrizeWheelProps> = ({
       <div
         className={`relative flex items-center justify-center ${
           isRotated
-            ? "w-[min(82vw,82vh,850px)] h-[min(82vw,82vh,850px)] min-w-[360px] min-h-[360px]"
+            ? "w-[min(54vw,54vh,540px)] h-[min(54vw,54vh,540px)] min-w-[300px] min-h-[300px]"
             : "w-[min(88vw,56vh,540px)] h-[min(88vw,56vh,540px)] sm:w-[min(70vw,60vh,560px)] sm:h-[min(70vw,60vh,560px)] md:w-[min(65vw,62vh,580px)] md:h-[min(65vw,62vh,580px)] xl:w-[min(44vw,66vh,620px)] xl:h-[min(44vw,66vh,620px)] 2xl:w-[min(46vw,70vh,660px)] 2xl:h-[min(46vw,70vh,660px)]"
         }`}
       >
