@@ -228,7 +228,7 @@ export default function Home() {
           <div
             className={`flex-1 w-full flex flex-row items-center justify-center gap-3 sm:gap-6 md:gap-8 lg:gap-10 order-1 xl:order-2 ${
               isRotated90or270
-                ? "pr-10 sm:pr-16 md:pr-20"
+                ? "justify-center -translate-x-12 sm:-translate-x-20 md:-translate-x-28"
                 : ""
             }`}
           >
@@ -274,7 +274,11 @@ export default function Home() {
             </div>
 
             {/* Personagem Renata: SEMPRE AO LADO DA ROLETA */}
-            <div className="flex items-end justify-center shrink-0 -ml-2 sm:-ml-4 md:-ml-6 lg:-ml-8 self-end pb-1">
+            <div className={`flex items-end justify-center shrink-0 self-end pb-1 ${
+              isRotated90or270
+                ? "-ml-4 sm:-ml-8 md:-ml-12"
+                : "-ml-2 sm:-ml-4 md:-ml-6 lg:-ml-8"
+            }`}>
               <CharacterAssistant />
             </div>
           </div>
