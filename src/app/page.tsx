@@ -179,7 +179,20 @@ export default function Home() {
       />
 
       {/* Área Principal */}
-      <main className="flex-1 w-full px-3 sm:px-6 lg:px-8 py-2 sm:py-3 flex flex-col justify-between items-center">
+      <main className="flex-1 w-full px-3 sm:px-6 lg:px-8 py-2 sm:py-3 flex flex-col justify-between items-center relative">
+        {/* Selo Comemorativo Ótica Renata 10 Anos: Perfeitamente centralizado no espaço exato entre o Header e o topo da Roleta */}
+        <div className={`w-full flex items-center justify-center shrink-0 select-none pointer-events-none z-20 ${
+          isRotated90or270
+            ? "py-3 sm:py-5 -translate-x-18 sm:-translate-x-28 md:-translate-x-38"
+            : "py-2 sm:py-4"
+        }`}>
+          <img
+            src="/otica_renata_10anos.png"
+            alt="Ótica Renata 10 Anos"
+            className="h-28 sm:h-36 md:h-44 lg:h-52 w-auto object-contain drop-shadow-[0_4px_16px_rgba(234,88,12,0.35)]"
+          />
+        </div>
+
         <div className="w-full max-w-[1700px] flex-1 flex flex-col xl:flex-row items-center justify-between gap-4 lg:gap-8 mx-auto">
           {/* 1. Lado Esquerdo: Painel de Prêmios e Ajustes */}
           <div className="w-full max-w-md xl:max-w-[360px] 2xl:max-w-[390px] flex items-start justify-center xl:justify-start shrink-0 order-2 xl:order-1 self-start">
@@ -227,19 +240,6 @@ export default function Home() {
           >
             {/* Coluna da Roleta com Ações rigorosamente alinhadas ao centro geométrico */}
             <div className="shrink-0 flex flex-col items-center justify-center z-10">
-              {/* Selo Comemorativo Ótica Renata 10 Anos: ampliado e posicionado bem mais para cima */}
-              <div className={`flex items-center justify-center shrink-0 select-none pointer-events-none ${
-                isRotated90or270
-                  ? "-mt-24 sm:-mt-32 md:-mt-40 mb-3 sm:mb-4"
-                  : "-mt-6 sm:-mt-10 mb-2 sm:mb-3"
-              }`}>
-                <img
-                  src="/otica_renata_10anos.png"
-                  alt="Ótica Renata 10 Anos"
-                  className="h-32 sm:h-40 md:h-48 lg:h-56 w-auto object-contain drop-shadow-[0_6px_20px_rgba(234,88,12,0.4)] transition-all duration-300"
-                />
-              </div>
-
               {/* Roleta Premiada */}
               <PrizeWheel
                 targetRotation={currentRotation}
