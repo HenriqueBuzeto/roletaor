@@ -235,24 +235,15 @@ export default function Home() {
               />
 
               {/* Ações Rápidas abaixo da roleta */}
-              <div className="mt-2.5 sm:mt-3 flex items-center justify-center gap-2 flex-wrap">
+              <div className="mt-3 sm:mt-4 flex items-center justify-center">
                 <button
                   onClick={handleTriggerSpin}
                   disabled={status === "spinning" || activePrizes.length < 2}
-                  className="px-6 sm:px-9 py-2.5 sm:py-3 rounded-full font-extrabold text-xs sm:text-sm uppercase tracking-wider text-white bg-gradient-to-r from-[#FF6B00] via-[#EA580C] to-[#C2410C] hover:brightness-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_8px_20px_rgba(234,88,12,0.35)] transition cursor-pointer flex items-center gap-2"
+                  className="px-8 sm:px-12 py-3.5 sm:py-4 rounded-full font-black text-sm sm:text-base md:text-lg uppercase tracking-wider text-white bg-gradient-to-r from-[#FF6B00] via-[#EA580C] to-[#C2410C] hover:brightness-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_10px_25px_rgba(234,88,12,0.45)] transition cursor-pointer flex items-center gap-2.5"
                 >
-                  <Play className="w-4 h-4 fill-current" />
+                  <Play className="w-5 h-5 fill-current" />
                   {status === "spinning" ? "Girando..." : "Girar Roleta"}
                 </button>
-
-                {isPresentation && (
-                  <button
-                    onClick={() => useWheelStore.getState().togglePresentationMode()}
-                    className="px-4 py-2.5 rounded-full font-semibold text-xs text-slate-700 bg-white border border-slate-300 hover:text-orange-600 hover:border-orange-300 shadow-xs transition cursor-pointer"
-                  >
-                    Configurar
-                  </button>
-                )}
               </div>
             </div>
 
