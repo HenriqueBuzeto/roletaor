@@ -12,21 +12,28 @@ export const WheelSegment: React.FC<WheelSegmentProps> = ({
   totalSegments,
   isWinner,
 }) => {
-  // Ajuste de tamanho de fonte baseado na quantidade de fatias
-  const fontSize =
-    totalSegments <= 4
-      ? 19
-      : totalSegments <= 8
-      ? 16
-      : totalSegments <= 12
-      ? 13
-      : 11;
+  const name = segment.prize.name.trim();
 
-  // Truncamento inteligente caso o texto seja muito longo para o espaço
-  const displayName =
-    segment.prize.name.length > 15
-      ? `${segment.prize.name.slice(0, 14)}…`
-      : segment.prize.name;
+  // Divide o nome em até 2 linhas caso contenha mais de 1 palavra e passe de 10 caracteres
+  let lines: string[] = [name];
+  if (name.length > 10 && name.includes(" ")) {
+    const words = name.split(" ");
+    const mid = Math.ceil(words.length / 2);
+    lines = [words.slice(0, mid).join(" "), words.slice(mid).join(" ")];
+  }
+
+  // Ajuste inteligente do tamanho da fonte para caber perfeitamente no raio da fatia
+  const maxLineLength = Math.max(...lines.map((l) => l.length));
+  let fontSize = 14;
+  if (totalSegments <= 4) {
+    fontSize = maxLineLength > 12 ? 14 : 17;
+  } else if (totalSegments <= 8) {
+    fontSize = maxLineLength > 12 ? 12 : 14;
+  } else if (totalSegments <= 12) {
+    fontSize = maxLineLength > 14 ? 9.5 : maxLineLength > 10 ? 11 : 12.5;
+  } else {
+    fontSize = maxLineLength > 12 ? 8.5 : 10;
+  }
 
   // No tema preto e laranja, o texto é sempre BRANCO PURO para contraste máximo
   const textColor = "#FFFFFF";
@@ -67,12 +74,23 @@ export const WheelSegment: React.FC<WheelSegmentProps> = ({
             fontFamily: "var(--font-sans, system-ui, sans-serif)",
             fontWeight: 800,
             fontSize: `${fontSize}px`,
-            letterSpacing: "0.08em",
+            letterSpacing: "0.04em",
             textTransform: "uppercase",
             filter: textShadow,
           }}
         >
-          {displayName}
+          {lines.length === 1 ? (
+            lines[0]
+          ) : (
+            <>
+              <tspan x="0" dy={`-${fontSize * 0.6}px`}>
+                {lines[0]}
+              </tspan>
+              <tspan x="0" dy={`${fontSize * 1.2}px`}>
+                {lines[1]}
+              </tspan>
+            </>
+          )}
         </text>
       </g>
     </g>
