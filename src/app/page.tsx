@@ -227,16 +227,16 @@ export default function Home() {
           >
             {/* Coluna da Roleta com Ações rigorosamente alinhadas ao centro geométrico */}
             <div className="shrink-0 flex flex-col items-center justify-center z-10">
-              {/* Selo Comemorativo Ótica Renata 10 Anos: ampliado e posicionado mais para cima */}
+              {/* Selo Comemorativo Ótica Renata 10 Anos: ampliado e posicionado bem mais para cima */}
               <div className={`flex items-center justify-center shrink-0 select-none pointer-events-none ${
                 isRotated90or270
-                  ? "-mt-10 sm:-mt-14 mb-2 sm:mb-3"
-                  : "mb-2 sm:mb-3"
+                  ? "-mt-24 sm:-mt-32 md:-mt-40 mb-3 sm:mb-4"
+                  : "-mt-6 sm:-mt-10 mb-2 sm:mb-3"
               }`}>
                 <img
                   src="/otica_renata_10anos.png"
                   alt="Ótica Renata 10 Anos"
-                  className="h-20 sm:h-24 md:h-28 lg:h-32 w-auto object-contain drop-shadow-[0_4px_16px_rgba(234,88,12,0.35)] transition-all duration-300"
+                  className="h-32 sm:h-40 md:h-48 lg:h-56 w-auto object-contain drop-shadow-[0_6px_20px_rgba(234,88,12,0.4)] transition-all duration-300"
                 />
               </div>
 
