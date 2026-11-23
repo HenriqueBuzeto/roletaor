@@ -221,7 +221,7 @@ export default function Home() {
           <div
             className={`flex-1 w-full flex flex-row items-center justify-center gap-3 sm:gap-6 md:gap-8 lg:gap-10 order-1 xl:order-2 ${
               isRotated90or270
-                ? "justify-center -translate-x-6 sm:-translate-x-10 md:-translate-x-14"
+                ? "justify-center -translate-x-18 sm:-translate-x-28 md:-translate-x-38"
                 : ""
             }`}
           >
@@ -259,7 +259,7 @@ export default function Home() {
             {/* Personagem Renata: SEMPRE AO LADO DA ROLETA */}
             <div className={`flex items-end justify-center shrink-0 self-end pb-1 ${
               isRotated90or270
-                ? "-ml-8 sm:-ml-12 md:-ml-16 translate-x-2 sm:translate-x-4"
+                ? "-ml-8 sm:-ml-12 md:-ml-16 translate-x-0"
                 : "-ml-2 sm:-ml-4 md:-ml-6 lg:-ml-8"
             }`}>
               <CharacterAssistant />
