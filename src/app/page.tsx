@@ -221,26 +221,12 @@ export default function Home() {
           <div
             className={`flex-1 w-full flex flex-row items-center justify-center gap-3 sm:gap-6 md:gap-8 lg:gap-10 order-1 xl:order-2 ${
               isRotated90or270
-                ? "justify-center -translate-x-32 sm:-translate-x-48 md:-translate-x-64"
+                ? "justify-center -translate-x-6 sm:-translate-x-10 md:-translate-x-14"
                 : ""
             }`}
           >
-            {/* Coluna da Roleta com Título rigorosamente alinhado ao centro geométrico */}
+            {/* Coluna da Roleta com Ações rigorosamente alinhadas ao centro geométrico */}
             <div className="shrink-0 flex flex-col items-center justify-center z-10">
-              {/* Título de Impacto Centralizado rigorosamente com a Roleta */}
-              <div className={`text-center shrink-0 ${
-                isRotated90or270
-                  ? "-mt-6 sm:-mt-8 mb-1 sm:mb-1.5"
-                  : "mb-2 sm:mb-2.5"
-              }`}>
-                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-orange-700 via-orange-600 to-amber-600 drop-shadow-xs">
-                  SUA SORTE BRILHA AQUI!
-                </h2>
-                <p className="text-xs sm:text-sm md:text-base text-slate-500 font-medium mt-0.5">
-                  Gire a roleta e descubra seu prêmio exclusivo
-                </p>
-              </div>
-
               {/* Roleta Premiada */}
               <PrizeWheel
                 targetRotation={currentRotation}
@@ -273,7 +259,7 @@ export default function Home() {
             {/* Personagem Renata: SEMPRE AO LADO DA ROLETA */}
             <div className={`flex items-end justify-center shrink-0 self-end pb-1 ${
               isRotated90or270
-                ? "-ml-12 sm:-ml-18 md:-ml-24 translate-x-0"
+                ? "-ml-8 sm:-ml-12 md:-ml-16 translate-x-2 sm:translate-x-4"
                 : "-ml-2 sm:-ml-4 md:-ml-6 lg:-ml-8"
             }`}>
               <CharacterAssistant />
